@@ -13,7 +13,7 @@ const BookDetails = () => {
   };
 
   return (
-    <div className=" mx-auto">
+    <div className=" mx-auto ">
       <div className="card bg-base-100 w-3/4 mx-auto my-8 shadow-sm ">
         <figure className="px-10 pt-10">
           <img src={image} alt="Shoes" className="rounded-xl w-sm" />

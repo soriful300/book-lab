@@ -1,5 +1,6 @@
 const getWishListItem = () => {
   const wishItem = localStorage.getItem("wishList");
+
   if (wishItem) {
     const parseItem = JSON.parse(wishItem);
     return parseItem;
@@ -19,4 +20,11 @@ const addItemLocalStorage = (id) => {
   }
 };
 
-export { addItemLocalStorage, getWishListItem };
+const deleteItem = (id) => {
+  console.log(id);
+  const wishItem = getWishListItem();
+  const removeItem = wishItem.filter((wid) => wid != id);
+  localStorage.setItem("wishList", JSON.stringify(removeItem));
+};
+
+export { addItemLocalStorage, getWishListItem, deleteItem };

@@ -1,18 +1,39 @@
 import React from "react";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 
 const Navbar = () => {
   const links = (
     <>
-      <Link to={"/"}>
-        <li className="m-2">Home</li>
-      </Link>
-      <Link to={"/about"}>
-        <li className="m-2">about</li>
-      </Link>
-      <Link to={"/saveBook"}>
-        <li className="m-2">Wish List</li>
-      </Link>
+      <NavLink
+        to={"/"}
+        className={({ isActive }) =>
+          isActive
+            ? "border border-green-600 m-2 font-bold p-2 rounded-sm text-green-600"
+            : "m-2 font-bold  p-2"
+        }
+      >
+        Home
+      </NavLink>
+      <NavLink
+        to={"/about"}
+        className={({ isActive }) =>
+          isActive
+            ? "border border-green-600 m-2 font-bold p-2 rounded-sm text-green-600"
+            : "m-2 font-bold  p-2"
+        }
+      >
+        Pages to Read
+      </NavLink>
+      <NavLink
+        to={"/saveBook"}
+        className={({ isActive }) =>
+          isActive
+            ? "border border-green-600 m-2 font-bold p-2 rounded-sm text-green-600"
+            : "m-2 font-bold  p-2"
+        }
+      >
+        Listed Book
+      </NavLink>
     </>
   );
   return (
@@ -37,7 +58,7 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            className=" menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
             {links}
           </ul>
@@ -48,7 +69,8 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1 ">{links}</ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        <a className="btn">Sign In</a>
+        <a className="btn">Sign Up</a>
       </div>
     </div>
   );
