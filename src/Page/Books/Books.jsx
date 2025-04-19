@@ -8,7 +8,7 @@ const Books = ({ data }) => {
 
   useEffect(() => {
     setBooks(showAll ? data : data.slice(0, 6));
-  }, [showAll]);
+  }, [showAll, data]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -27,7 +27,7 @@ const Books = ({ data }) => {
 
   return (
     <div className="">
-      <div className="flex justify-center mt-4">
+      <div className="flex justify-center mt-8">
         <label className="input w-7/12">
           <svg
             className="h-[1em] opacity-50"
@@ -51,15 +51,10 @@ const Books = ({ data }) => {
               defaultValue={searchText}
               onChange={(e) => handleSearch(e)}
               required
-              placeholder="Search by Phone Name"
+              placeholder="Search by Book Name"
             />
           </form>
         </label>
-        <div className="ml-4">
-          <button onClick={() => handleSearch()} className="btn">
-            Search
-          </button>
-        </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-11/12 mx-auto gap-8">
         {books?.map((book, index) => {
@@ -71,7 +66,10 @@ const Books = ({ data }) => {
         })}
       </div>
       <div className="items-center text-center">
-        <button onClick={() => setShowAll(!showAll)} className="btn mb-4">
+        <button
+          onClick={() => setShowAll(!showAll)}
+          className="bg-green btn mb-4"
+        >
           {showAll ? `Show Less` : "Show All"}
         </button>
       </div>

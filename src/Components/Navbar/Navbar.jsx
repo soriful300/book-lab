@@ -15,16 +15,6 @@ const Navbar = () => {
         Home
       </NavLink>
       <NavLink
-        to={"/about"}
-        className={({ isActive }) =>
-          isActive
-            ? "border border-green-600 m-2 font-bold p-2 rounded-sm text-green-600"
-            : "m-2 font-bold  p-2"
-        }
-      >
-        Pages to Read
-      </NavLink>
-      <NavLink
         to={"/saveBook"}
         className={({ isActive }) =>
           isActive
@@ -34,10 +24,20 @@ const Navbar = () => {
       >
         Listed Book
       </NavLink>
+      <NavLink
+        to={"/about"}
+        className={({ isActive }) =>
+          isActive
+            ? "border border-green-600 m-2 font-bold p-2 rounded-sm text-green-600"
+            : "m-2 font-bold  p-2"
+        }
+      >
+        Pages to Read
+      </NavLink>
     </>
   );
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    <div className="navbar bg-base-100 shadow-sm ">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -68,9 +68,13 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1 ">{links}</ul>
       </div>
-      <div className="navbar-end">
-        <a className="btn">Sign In</a>
-        <a className="btn">Sign Up</a>
+      <div className="navbar-end flex gap-6 ">
+        <button className="bg-[#23BE0A] font-bold text-white btn">
+          Sign In
+        </button>
+        <button className="btn bg-[#59C6D2] font-bold  text-white">
+          Sign Up
+        </button>
       </div>
     </div>
   );

@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { useLoaderData } from "react-router";
+import { Link, useLoaderData } from "react-router";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { deleteItem, getWishListItem } from "../../Utility/addToDB";
 import Book from "../Books/Book";
+import {
+  deleteReadListItem,
+  getMarkAsReadToStorage,
+} from "../../Utility/addMarkAsRead";
+import NoBookWishList from "./NoBookWishList";
 
 const SaveBook = () => {
   const [wishBookList, setWishBookList] = useState([]);
+  const [markAsRead, setMarkAsRead] = useState([]);
   const [sort, setSort] = useState([]);
   const data = useLoaderData();
 
+  //get wishList from local storage
   useEffect(() => {
     const wishData = getWishListItem();
     const wishId = wishData?.map((wId) => parseInt(wId));
@@ -19,6 +26,15 @@ const SaveBook = () => {
     setWishBookList(filterWishBooks);
   }, [data]);
 
+  //get ReadList from local storage
+  useEffect(() => {
+    const markAsReadBook = getMarkAsReadToStorage();
+    const parseBook = markAsReadBook.map((book) => parseInt(book));
+    const filterReadBook = data.filter((book) =>
+      parseBook.includes(book.bookId)
+    );
+    setMarkAsRead(filterReadBook);
+  }, [setMarkAsRead, data]);
   const handleSort = (type) => {
     setSort(type);
     if (type === "pages") {
@@ -39,6 +55,11 @@ const SaveBook = () => {
     deleteItem(bookId);
     // setWishBookList(wishBookList.filter((book) => book.bookId != bookId));
     setWishBookList(getWishListItem());
+  };
+
+  const handleDeleteReadList = (id) => {
+    deleteReadListItem(id);
+    setmarkAsRead(getMarkAsReadToStorage());
   };
 
   // console.log(wishBookList);
@@ -83,8 +104,59 @@ const SaveBook = () => {
         </TabList>
 
         <TabPanel>
+          {wishBookList.length > 0 ? (
+            <h1>No Book in WishList</h1>
+          ) : (
+            <div className="">
+              {wishBookList?.map((wBook) => {
+                return (
+                  <div className="flex gap-16 mt-4 border-b border-gray-100 p-2 ">
+                    <div className="p-8  rounded-lg bg-gray-100">
+                      <img
+                        className="h-40 w-30  mt-2"
+                        src={wBook.image}
+                        alt=""
+                      />
+                    </div>
+                    <div className="">
+                      <h1>{wBook.bookName}</h1>
+                      <p>By: {wBook.author}</p>
+                      <div className="flex gap-4 ">
+                        <p>
+                          <span className="font-bold">Tag</span>
+                        </p>
+                        {wBook?.tags?.map((tag) => (
+                          <p className=" rounded-lg ">{tag}</p>
+                        ))}
+                      </div>
+                      <p>Year of Publishing {wBook.yearOfPublishing}</p>
+                      <div className="mt-4">
+                        <div className="space-x-8">
+                          <button className="btn">
+                            Category {SaveBook.category}
+                          </button>
+                          <Link to={`/bookDetails/${wBook.bookId}`}>
+                            <button className="btn">View Details</button>
+                          </Link>
+
+                          <button
+                            onClick={() => handleDeleteWishList(wBook.bookId)}
+                            className="btn"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </TabPanel>
+        <TabPanel>
           <div className="">
-            {wishBookList?.map((wBook) => {
+            {markAsRead?.map((wBook) => {
               return (
                 <div className="flex gap-16 mt-4 border-b border-gray-100 p-2 ">
                   <div className="p-8  rounded-lg bg-gray-100">
@@ -107,9 +179,12 @@ const SaveBook = () => {
                         <button className="btn">
                           Category {SaveBook.category}
                         </button>
-                        <button className="btn">Rating</button>
+                        <Link to={`/bookDetails/${wBook.bookId}`}>
+                          <button className="btn">View Details</button>
+                        </Link>
+
                         <button
-                          onClick={() => handleDeleteWishList(wBook.bookId)}
+                          onClick={() => handleDeleteReadList(wBook.bookId)}
                           className="btn"
                         >
                           Delete
@@ -121,9 +196,6 @@ const SaveBook = () => {
               );
             })}
           </div>
-        </TabPanel>
-        <TabPanel>
-          <h2>Any content 2</h2>
         </TabPanel>
       </Tabs>
     </div>

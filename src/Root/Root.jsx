@@ -6,10 +6,11 @@ import Home from "../Page/Home/Home";
 
 const Root = () => {
   return (
-    <div className="w-11/12 mx-auto">
+    <div className="">
       <Navbar></Navbar>
-      <Outlet>
-      </Outlet>
+      <div className="w-11/12 mx-auto">
+        <Outlet></Outlet>
+      </div>
       <Footer></Footer>
     </div>
   );

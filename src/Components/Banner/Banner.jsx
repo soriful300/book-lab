@@ -3,20 +3,15 @@ import React from "react";
 const Banner = () => {
   return (
     <div className="hero bg-base-200 mt-4 rounded-2xl">
-      <div className="hero-content flex-col lg:flex-row">
-        <img
-          src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
-          className="max-w-sm rounded-lg shadow-2xl"
-        />
+      <div className="hero-content flex-row-reverse lg:flex-row">
         <div>
-          <h1 className="text-5xl font-bold">Box Office News!</h1>
-          <p className="py-6">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
-          </p>
-          <button className="btn btn-primary">Get Started</button>
+          <h1 className="text-5xl font-bold">
+            Books to freshen up <br /> your bookshelf
+          </h1>
+
+          <button className="btn bg-[#23BE0A] text-white mt-8">View The List</button>
         </div>
+        <img src="/public/pngwing.png" className="max-w-sm rounded-lg " />
       </div>
     </div>
   );

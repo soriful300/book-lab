@@ -1,6 +1,7 @@
 import React from "react";
 import { useLoaderData, useParams } from "react-router";
 import { addItemLocalStorage } from "../../Utility/addToDB";
+import { setItemOnStorage } from "../../Utility/addMarkAsRead";
 
 const BookDetails = () => {
   const { id } = useParams();
@@ -10,6 +11,10 @@ const BookDetails = () => {
   const { bookName, author, image } = detailsBook;
   const handleAddWishList = (id) => {
     addItemLocalStorage(id);
+  };
+  const handleAddToReadItem = (bookId) => {
+    console.log(bookId);
+    setItemOnStorage(bookId);
   };
 
   return (
@@ -22,7 +27,12 @@ const BookDetails = () => {
           <h2 className="card-title">{bookName}</h2>
           <p>{author}</p>
           <div className="card-actions">
-            <button className="btn btn-primary">Mark As Read</button>
+            <button
+              onClick={() => handleAddToReadItem(id)}
+              className="btn btn-primary"
+            >
+              Mark As Read
+            </button>
             <button
               onClick={() => handleAddWishList(id)}
               className="btn btn-primary"
